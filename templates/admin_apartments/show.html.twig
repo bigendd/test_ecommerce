@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apartments{% endblock %}
+
+{% block body %}
+    <h1>Apartments</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ apartment.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ apartment.name }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ apartment.address }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ apartment.price }}</td>
+            </tr>
+            <tr>
+                <th>MaxGuests</th>
+                <td>{{ apartment.maxGuests }}</td>
+            </tr>
+            <tr>
+                <th>IsAvailable</th>
+                <td>{{ apartment.isAvailable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>AvailableFrom</th>
+                <td>{{ apartment.availableFrom ? apartment.availableFrom|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AvailableUntil</th>
+                <td>{{ apartment.availableUntil ? apartment.availableUntil|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ apartment.type }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ apartment.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Images</h2>
+    {% if apartment.images is not empty %}
+        <div class="gallery">
+            {% for image in apartment.images %}
+                <img src="{{ asset('uploads/images/' ~ image.url) }}" alt="Apartment Image" class="img-thumbnail" style="max-width: 200px; margin: 10px;">
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No images available for this apartment.</p>
+    {% endif %}
+
+    <a href="{{ path('app_admin_apartments_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_apartments_edit', {'id': apartment.id}) }}">edit</a>
+
+    {{ include('admin_apartments/_delete_form.html.twig') }}
+{% endblock %}

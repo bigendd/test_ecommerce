@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apartments index{% endblock %}
+
+{% block body %}
+    <h1>Apartments index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Price</th>
+                <th>MaxGuests</th>
+                <th>IsAvailable</th>
+                <th>AvailableFrom</th>
+                <th>AvailableUntil</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for apartment in apartments %}
+            <tr>
+                <td>{{ apartment.id }}</td>
+                <td>{{ apartment.name }}</td>
+                <td>{{ apartment.address }}</td>
+                <td>{{ apartment.price }}</td>
+                <td>{{ apartment.maxGuests }}</td>
+                <td>{{ apartment.isAvailable ? 'Yes' : 'No' }}</td>
+                <td>{{ apartment.availableFrom ? apartment.availableFrom|date('Y-m-d') : '' }}</td>
+                <td>{{ apartment.availableUntil ? apartment.availableUntil|date('Y-m-d') : '' }}</td>
+                <td>{{ apartment.type }}</td>
+                <td>{{ apartment.description }}</td>
+                <td>
+                    <a href="{{ path('app_admin_apartments_show', {'id': apartment.id}) }}">show</a>
+                    <a href="{{ path('app_admin_apartments_edit', {'id': apartment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_apartments_new') }}">Create new</a>
+{% endblock %}
